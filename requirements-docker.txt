@@ -1,0 +1,11 @@
+# API REST
+fastapi==0.141.1
+uvicorn>=0.30,<1
+python-multipart>=0.0.9,<1
+
+# Traitement d'images
+Pillow>=10,<13
+numpy>=1.26,<3
+
+# Modèle CNN — exécution CPU
+tensorflow-cpu==2.21.0

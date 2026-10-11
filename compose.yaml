@@ -1,0 +1,28 @@
+services:
+
+  surface-crack-api:
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: surface-crack-api:latest
+
+    container_name: surface-crack-api
+
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    environment:
+      SURFACE_CRACK_MODEL_PATH: /app/artifacts/cnn_best.keras
+      TF_CPP_MIN_LOG_LEVEL: "2"
+
+    volumes:
+      - type: bind
+        source: ./artifacts/cnn_best.keras
+        target: /app/artifacts/cnn_best.keras
+        read_only: true
+        bind:
+          create_host_path: false
+
+    restart: unless-stopped

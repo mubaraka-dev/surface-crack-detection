@@ -1,0 +1,24 @@
+{
+    "project": "Surface Crack Detection",
+    "student": 4,
+    "component": "Docker",
+    "model": "CNN personnalisé",
+    "model_file": "artifacts/cnn_best.keras",
+    "model_managed_with_dvc": true,
+    "api": "FastAPI",
+    "server": "Uvicorn",
+    "container": "Docker",
+    "python_version": "3.11",
+    "tensorflow_version": "2.21.0",
+    "docker_files_generated": [
+        "Dockerfile",
+        "compose.yaml",
+        ".dockerignore",
+        "requirements-docker.txt"
+    ],
+    "yaml_validation": "passed",
+    "python_tests": "passed",
+    "docker_engine_available": false,
+    "docker_image_built": false,
+    "docker_container_tested": false
+}

@@ -1,0 +1,19 @@
+{
+    "project": "Surface Crack Detection",
+    "stage": "FastAPI",
+    "model": "CNN personnalisé",
+    "model_path": "/content/surface-crack-detection-synced/artifacts/cnn_best.keras",
+    "test_image": "Japan_004743.jpg",
+    "true_label": "crack",
+    "api_prediction": {
+        "prediction": "crack",
+        "class_id": 1,
+        "confidence": 0.8264,
+        "crack_probability": 0.8264,
+        "threshold": 0.5,
+        "model": "CNN personnalisé"
+    },
+    "inference_time_seconds": 0.4975,
+    "model_api_consistency": true,
+    "status": "success"
+}
