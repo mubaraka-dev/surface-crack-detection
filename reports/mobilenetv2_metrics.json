@@ -1,0 +1,22 @@
+{
+    "model": "MobileNetV2",
+    "architecture": "Transfer Learning",
+    "dataset": "RDD2022 \u2014 Japan + India",
+    "validation": {
+        "accuracy": 0.712298682284041,
+        "precision": 0.7560795873249816,
+        "recall": 0.6927751519243754,
+        "f1_score": 0.7230443974630021,
+        "roc_auc": 0.7886039581569046
+    },
+    "training_time_seconds": 279.6,
+    "epochs_completed": 7,
+    "best_epoch": 4,
+    "validation_samples": 2732,
+    "evaluation_time_seconds": 20.5,
+    "image_size": [
+        160,
+        160
+    ],
+    "batch_size": 32
+}

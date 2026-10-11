@@ -1,0 +1,53 @@
+{
+    "project": "Surface Crack Detection",
+    "dataset": "RDD2022",
+    "countries": [
+        "Japan",
+        "India"
+    ],
+    "test_samples": 2732,
+    "positive_label": "crack",
+    "negative_label": "no_crack",
+    "classification_threshold": 0.5,
+    "selection_metric": "f1_score",
+    "best_model_on_test": "CNN personnalisé",
+    "models": [
+        {
+            "modele": "HOG + SVM",
+            "images_test": 2732,
+            "accuracy": 0.6222547584187409,
+            "precision": 0.6532423208191126,
+            "recall": 0.6461850101282917,
+            "f1_score": 0.6496945010183299,
+            "roc_auc": 0.6674590105093507,
+            "temps_inference_secondes": 37.9
+        },
+        {
+            "modele": "CNN personnalisé",
+            "images_test": 2732,
+            "accuracy": 0.7276720351390923,
+            "precision": 0.782375478927203,
+            "recall": 0.6893990546927752,
+            "f1_score": 0.7329504666188084,
+            "roc_auc": 0.8075511231797816,
+            "temps_inference_secondes": 5.43
+        },
+        {
+            "modele": "MobileNetV2",
+            "images_test": 2732,
+            "accuracy": 0.7174231332357247,
+            "precision": 0.7695817490494297,
+            "recall": 0.6833220796758946,
+            "f1_score": 0.7238912732474965,
+            "roc_auc": 0.7904482625918172,
+            "temps_inference_secondes": 9.3
+        }
+    ],
+    "methodology_notes": [
+        "CNN et MobileNetV2 ont été entraînés sur 12748 images.",
+        "HOG + SVM a été entraîné sur un sous-ensemble de 4000 images.",
+        "Les trois modèles sont évalués sur les mêmes 2732 images.",
+        "Les scores du SVM ne sont pas des probabilités calibrées.",
+        "Les performances sur le test ne doivent pas servir à régler les modèles."
+    ]
+}

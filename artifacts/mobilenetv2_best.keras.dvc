@@ -1,0 +1,5 @@
+outs:
+- md5: c3c6368297f2fcc7976769c2d5b3e607
+  size: 10289735
+  hash: md5
+  path: mobilenetv2_best.keras

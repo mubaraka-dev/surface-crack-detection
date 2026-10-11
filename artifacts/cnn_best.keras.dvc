@@ -1,0 +1,5 @@
+outs:
+- md5: ac9504da8ab0e7c3776abacffbc23140
+  size: 5172783
+  hash: md5
+  path: cnn_best.keras

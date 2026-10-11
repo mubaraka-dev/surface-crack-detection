@@ -1,0 +1,11 @@
+# Dépendances principales
+numpy
+pandas
+scikit-learn
+scikit-image
+tensorflow
+Pillow
+matplotlib
+joblib
+dvc
+pytest

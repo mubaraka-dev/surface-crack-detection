@@ -1,0 +1,5 @@
+outs:
+- md5: 6a0fda766ab2755ba21855438aeba50c
+  size: 260413
+  hash: md5
+  path: hog_svm_model.joblib

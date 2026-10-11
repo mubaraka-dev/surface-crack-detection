@@ -1,0 +1,33 @@
+{
+  "seed": 42,
+  "image_size": [
+    224,
+    224
+  ],
+  "label_mapping": {
+    "no_crack": 0,
+    "crack": 1
+  },
+  "dataset_source": "https://drive.google.com/uc?id=11qAhm_JeL15H617vKMwC-4SoptsHIho5",
+  "split_counts": [
+    {
+      "split": "train",
+      "images": 12748,
+      "crack": 6911,
+      "no_crack": 5837
+    },
+    {
+      "split": "val",
+      "images": 2732,
+      "crack": 1481,
+      "no_crack": 1251
+    },
+    {
+      "split": "test",
+      "images": 2732,
+      "crack": 1481,
+      "no_crack": 1251
+    }
+  ],
+  "warning": "Vérifier regroupement par site/ouvrage si métadonnées géographiques disponibles."
+}
