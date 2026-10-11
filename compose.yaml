@@ -11,7 +11,7 @@ services:
     container_name: surface-crack-api
 
     ports:
-      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:8085:8000"
 
     environment:
       SURFACE_CRACK_MODEL_PATH: /app/artifacts/cnn_best.keras
