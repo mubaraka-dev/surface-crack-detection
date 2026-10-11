@@ -1,0 +1,48 @@
+name: Surface Crack Detection CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Tests Python et validation ML
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-ci.txt
+
+      - name: Installer les dépendances
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-ci.txt
+
+      - name: Vérifier la syntaxe Python
+        run: python -m compileall -q src tests
+
+      - name: Exécuter les tests
+        run: python -m pytest tests/ -v
+
+      - name: Vérifier les modèles DVC
+        run: |
+          test -f artifacts/cnn_best.keras.dvc
+          test -f artifacts/hog_svm_model.joblib.dvc
+          test -f artifacts/mobilenetv2_best.keras.dvc
+
+      - name: Vérifier les résultats
+        run: |
+          python -c "import pandas as pd; d=pd.read_csv('reports/final_model_comparison.csv'); assert len(d)==3; assert d['f1_score'].between(0,1).all()"
