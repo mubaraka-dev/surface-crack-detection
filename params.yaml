@@ -1,0 +1,19 @@
+dataset:
+  name: RDD2022
+  countries:
+    - Japan
+    - India
+
+  train_size: 12748
+  val_size: 2732
+  test_size: 2732
+
+training:
+  seed: 42
+  image_size: 160
+  batch_size: 32
+  epochs: 8
+  learning_rate: 0.001
+
+evaluation:
+  threshold: 0.5

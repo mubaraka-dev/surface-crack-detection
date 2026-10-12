@@ -1,0 +1,26 @@
+schema: '2.0'
+stages:
+  validate_saved_predictions:
+    cmd: python src/pipeline/validate_saved_predictions.py
+    deps:
+    - path: reports/final_test_predictions.csv
+      hash: md5
+      md5: bfba1d7d4b83c248c7130aaa752b694d
+      size: 417588
+    - path: src/pipeline/validate_saved_predictions.py
+      hash: md5
+      md5: a1b8e7575d342133b96ed061ba202542
+      size: 5571
+    outs:
+    - path: reports/pipeline_validation/comparison.csv
+      hash: md5
+      md5: 412761c889d38cadb87a4b65ff1f22da
+      size: 432
+    - path: reports/pipeline_validation/metrics.json
+      hash: md5
+      md5: a9118494feb928d02721aa6ae4c7b97c
+      size: 787
+    - path: reports/pipeline_validation/validation_report.json
+      hash: md5
+      md5: e22b63b83759e4b045d69b7b71208363
+      size: 1026

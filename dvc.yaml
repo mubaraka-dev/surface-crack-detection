@@ -1,0 +1,44 @@
+stages:
+  prepare:
+    cmd: python src/pipeline/run.py prepare
+    deps:
+    - src/pipeline/run.py
+    - reports/train_manifest.csv
+    - reports/val_manifest.csv
+    - reports/test_manifest.csv
+    params:
+    - dataset
+    outs:
+    - data/pipeline
+  train_cnn:
+    cmd: python src/pipeline/run.py train
+    deps:
+    - src/pipeline/run.py
+    - data/pipeline/train.csv
+    - data/pipeline/val.csv
+    params:
+    - training
+    outs:
+    - artifacts/pipeline_experiment
+  evaluate_cnn:
+    cmd: python src/pipeline/run.py evaluate
+    deps:
+    - src/pipeline/run.py
+    - data/pipeline/test.csv
+    - artifacts/pipeline_experiment/cnn_pipeline.keras
+    params:
+    - evaluation
+    outs:
+    - reports/pipeline_experiment/predictions.csv
+    metrics:
+    - reports/pipeline_experiment/metrics.json
+  validate_saved_predictions:
+    cmd: python src/pipeline/validate_saved_predictions.py
+    deps:
+    - src/pipeline/validate_saved_predictions.py
+    - reports/final_test_predictions.csv
+    outs:
+    - reports/pipeline_validation/comparison.csv
+    - reports/pipeline_validation/validation_report.json
+    metrics:
+    - reports/pipeline_validation/metrics.json
