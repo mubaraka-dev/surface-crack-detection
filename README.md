@@ -485,3 +485,163 @@ docker compose up -d --build
 | GitHub Actions | Intégration continue |
 
 ---
+
+<!-- MLOPS_PIPELINE_START -->
+
+## Pipeline Machine Learning et MLOps
+
+### Présentation
+
+Le projet **Surface Crack Detection** utilise le dataset
+RDD2022 pour classifier les images routières en deux classes :
+
+- `crack` : présence d'au moins une annotation D00, D10 ou D20.
+- `no_crack` : absence de ces annotations.
+
+Le projet utilise les données du Japon et de l'Inde.
+
+### Dataset
+
+| Ensemble | Images |
+|---|---:|
+| Entraînement | 12 748 |
+| Validation | 2 732 |
+| Test | 2 732 |
+| **Total** | **18 212** |
+
+Les images originales ne sont pas incluses dans GitHub.
+
+### Modèles Machine Learning
+
+Trois modèles ont été comparés :
+
+**HOG + SVM**
+
+Extraction de 8 100 caractéristiques HOG
+sur des images 128 × 128 en niveaux de gris,
+suivie d'un SVM linéaire.
+
+**CNN personnalisé**
+
+Réseau convolutif entraîné à partir de zéro
+sur des images RGB 160 × 160.
+
+Le CNN historique contient 423 361 paramètres.
+
+**MobileNetV2**
+
+Réseau convolutif utilisant l'apprentissage
+par transfert à partir de poids ImageNet.
+
+### Résultats scientifiques
+
+Évaluation sur 2 732 images de test.
+
+| Modèle | Accuracy | Precision | Recall | F1-score | ROC-AUC |
+|---|---:|---:|---:|---:|---:|
+| CNN personnalisé | 0.7277 | 0.7824 | 0.6894 | 0.7330 | 0.8076 |
+| MobileNetV2 | 0.7174 | 0.7696 | 0.6833 | 0.7239 | 0.7904 |
+| HOG + SVM | 0.6223 | 0.6532 | 0.6462 | 0.6497 | 0.6675 |
+
+Le CNN personnalisé a été retenu pour FastAPI.
+
+### Pipeline DVC
+
+Le fichier `dvc.yaml` définit quatre étapes :
+
+1. `prepare` : vérification et préparation des données.
+2. `train_cnn` : entraînement du CNN expérimental.
+3. `evaluate_cnn` : évaluation du CNN expérimental.
+4. `validate_saved_predictions` : validation des prédictions historiques.
+
+Les trois premières étapes sont configurées,
+mais ne sont pas encore exécutées dans ce nouveau pipeline.
+
+L'étape `validate_saved_predictions` a été exécutée
+avec succès.
+
+### Reproduire la validation
+
+Installer les dépendances :
+
+    python -m pip install -r requirements-ci.txt
+    python -m pip install "dvc>=3,<4"
+
+Exécuter l'étape scientifique :
+
+    dvc repro validate_saved_predictions
+
+Afficher les métriques :
+
+    dvc metrics show
+
+Afficher le pipeline :
+
+    dvc dag
+
+Vérifier son état :
+
+    dvc status
+
+Cette validation utilise les prédictions enregistrées
+dans `reports/final_test_predictions.csv`.
+
+Elle ne nécessite pas de télécharger les 12 Go
+du dataset original.
+
+### Versionnement des modèles
+
+Les modèles historiques sont suivis par DVC :
+
+- `artifacts/cnn_best.keras.dvc`
+- `artifacts/mobilenetv2_best.keras.dvc`
+- `artifacts/hog_svm_model.joblib.dvc`
+
+Les fichiers `.dvc` contiennent les références
+des artefacts, et non les poids des modèles.
+
+### MLflow
+
+MLflow est utilisé pour consulter et comparer
+les résultats des trois modèles.
+
+Les expériences historiques ont été enregistrées
+dans MLflow après les entraînements initiaux.
+
+### GitHub Actions
+
+Deux workflows assurent l'intégration continue :
+
+- `.github/workflows/main.yml`
+- `.github/workflows/ci.yml`
+
+Ils ont été exécutés avec succès sur le commit `c7ae4ad`.
+
+Les tests comprennent notamment les vérifications
+de l'API FastAPI et des résultats scientifiques.
+
+### FastAPI et Docker
+
+Le modèle CNN historique est exposé avec FastAPI.
+
+Endpoints principaux :
+
+- `/health`
+- `/model/info`
+- `/predict`
+
+Docker permet d'exécuter l'API dans un conteneur.
+
+### Limites
+
+Le nouveau pipeline DVC d'entraînement n'a
+pas encore été exécuté.
+
+Les images originales ne sont pas versionnées
+comme dépendances complètes de ce pipeline.
+
+Le CNN présente également des limites de
+généralisation sur certaines nouvelles images,
+notamment selon leur provenance.
+
+<!-- MLOPS_PIPELINE_END -->
