@@ -1,0 +1,9 @@
+# Dépendances nécessaires aux tests GitHub Actions
+pytest
+numpy
+pandas
+Pillow
+fastapi
+httpx
+python-multipart
+tensorflow-cpu>=2.16,<2.22
